@@ -9,7 +9,7 @@ class Contact extends Component{
             impression:'',
             },
         
-     userList: []
+     personlist: []
     }
 
     handleChangeFor = (event, propName)=>{
@@ -19,19 +19,19 @@ class Contact extends Component{
         })
     }
 
-    // handleChangeLastName= (event)=>{
-    //     console.log(event.target.value)
-    //     this.setState({
-    //         lastName: event.target.value,
-    //     })
-    // }
 
-    // handleChangeImpression= (event)=>{
-    //     console.log(event.target.value)
-    //     this.setState({
-    //         impression: event.target.value,
-    //     })
-    // }
+    handleSubmit =() =>{
+        console.log('In submit', this.state.person);
+        this.setState({
+            person: {
+                firstName:'',
+                lastName:'',
+                impression:'',
+                },
+                personlist: [...this.state.personlist, this.state.person]
+        })
+      }
+    
     render(){
 
         
@@ -39,14 +39,14 @@ class Contact extends Component{
         return(
             <div>
            <h2>Contact</h2>
-           <input type="text" id="firstname" onChange={this.handleChangeFirstName} placeholder="First Name"></input>
-           <input id="lastName" type="text" onChange={this.handleChangeLastName} placeholder="Last Name">
-            </input><input id="impression" type="text" onChange={this.handleChangeImpression} placeholder="Best Impression"></input>
-            <button type="submit" id="submit">Submit</button>
-            <p>{this.state.firstName} {this.state.lastName}'s Best impression is {this.state.impression}.</p>
-           <p> Phone: 1-800-WE-REACT</p>
-           <p>Email: info@reactActors.com</p>
-           </div>
+           <input type="text" id="firstname" value={this.state.firstName} onChange={(event) => this.handleChangeFor(event,'firstName')}></input>
+           <input type="text" id="firstname" value={this.state.lastName} onChange={(event) => this.handleChangeFor(event,'LastName')}></input>
+           <input type="text" id="firstname" value={this.state.impression} onChange={(event) => this.handleChangeFor(event,'impression')}></input>
+           <button onClick={this.handleSubmit} type="submit" id="submit">Submit</button>
+           {this.state.personlist.map(item => <p> {item.firstName} {item.lastName} Best Impression is {item.impression}.</p>)}
+            <p> Phone: 1-800-WE-REACT</p>
+            <p>Email: info@reactActors.com</p>
+            </div>
         )
     }
 }
